@@ -1,74 +1,52 @@
-const changeColorBtn = document.getElementById("changeColorBtn");
+const changeColorBtn =
+    document.getElementById("changeColorBtn");
 
-const resetColorBtn = document.getElementById("resetColorBtn");
+const resetColorBtn =
+    document.getElementById("resetColorBtn");
 
-const keyDisplay = document.getElementById("keyDisplay");
+const keyDisplay =
+    document.getElementById("keyDisplay");
 
-const textInput = document.getElementById("textInput");
+const textInput =
+    document.getElementById("textInput");
 
-const textDisplay = document.getElementById("textDisplay");
-
-const combinedOutput = document.getElementById("combinedOutput");
-
+const textDisplay =
+    document.getElementById("textDisplay");
 
 function changeBackgroundColor() {
 
-    const colors = [
-        "#ffadad",
-        "#ffd6a5",
-        "#fdffb6",
-        "#caffbf",
-        "#9bf6ff",
-        "#a0c4ff",
-        "#bdb2ff"
-    ];
-
     const randomColor =
-        colors[Math.floor(Math.random() * colors.length)];
+        `rgb(
+            ${Math.floor(Math.random() * 256)},
+            ${Math.floor(Math.random() * 256)},
+            ${Math.floor(Math.random() * 256)}
+        )`;
 
-    document.body.style.backgroundColor = randomColor;
-
-    combinedOutput.textContent =
-        `Background changed to ${randomColor}`;
+    document.body.style.backgroundColor =
+        randomColor;
 }
-
 
 function resetBackgroundColor() {
 
-    document.body.style.backgroundColor = "white";
-
-    combinedOutput.textContent =
-        "Background reset to white";
+    document.body.style.backgroundColor = "";
 }
-
 
 function displayKeyPress(event) {
 
     keyDisplay.textContent =
-        `You pressed: ${event.key}`;
-
-    combinedOutput.textContent =
-        `Keyboard event detected: ${event.key}`;
+        `Key pressed: ${event.key}`;
 }
-
 
 function displayUserInput() {
 
-    textDisplay.textContent = textInput.value;
-
-    combinedOutput.textContent =
-        `Typing: ${textInput.value}`;
+    textDisplay.textContent =
+        `You typed: ${textInput.value}`;
 }
 
+function combinedEvents(event) {
 
-function dynamicInteraction(event) {
-
-    console.log("Event Triggered:", event.type);
-
-    combinedOutput.textContent =
-        `Event Type: ${event.type}`;
+    console.log(`Event Triggered: ${event.type}`);
 }
-
 
 changeColorBtn.addEventListener(
     "click",
@@ -92,15 +70,15 @@ textInput.addEventListener(
 
 changeColorBtn.addEventListener(
     "click",
-    dynamicInteraction
+    combinedEvents
 );
 
 document.addEventListener(
     "keydown",
-    dynamicInteraction
+    combinedEvents
 );
 
 textInput.addEventListener(
     "input",
-    dynamicInteraction
+    combinedEvents
 );
