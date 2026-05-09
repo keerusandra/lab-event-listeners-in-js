@@ -1,57 +1,27 @@
-// Handle Button Clicks
+function createLoginTracker(userInfo) {
+  let attemptCount = 0;
 
-// Function to change the background color when a button is clicked
-function changeBackgroundColor() {
-  // Implement the function to change background color
-}
+  return (passwordAttempt) => {
+    attemptCount++;
 
-// Function to reset the background color when the body is double-clicked
-function resetBackgroundColor() {
-  // Implement the function to reset background color
-}
+    // Lock account after more than 3 attempts
+    if (attemptCount > 3) {
+      return "Account locked due to too many failed login attempts";
+    }
 
-// Capture Keyboard Input
+    // Successful login
+    if (
+      passwordAttempt === userInfo.password &&
+      attemptCount < 3
+    ) {
+      return "Login successful";
+    }
 
-// Function to display the key pressed by the user
-function displayKeyPress(event) {
-  // Implement the function to display key pressed
-}
-
-// Process Text Input
-
-// Function to display user input in real-time
-function displayUserInput() {
-  // Implement the function to display user input
-}
-
-// Attach Event Listeners
-function setupEventListeners() {
-// Attach event listener to change background color when the button is clicked
-  document
-    .getElementById('changeColorButton')
-    .addEventListener('click', changeBackgroundColor)
-
-  // Attach event listener to reset background color when the body is double-clicked
-  document
-    .getElementById('resetColorButton')
-    .addEventListener('dblclick', resetBackgroundColor)
-
-  // Attach event listener to display key pressed when a key is pressed down
-  document.addEventListener('keydown', displayKeyPress)
-
-  // Attach event listener to display user input in real-time as they type
-  document.getElementById('textInput').addEventListener('input', displayUserInput)
-}
-
-// Initialize event listeners when the DOM is loaded
-if (typeof window !== 'undefined') {
-  document.addEventListener('DOMContentLoaded', setupEventListeners)
+    // Failed login attempts
+    return `Attempt ${attemptCount}: Login failed`;
+  };
 }
 
 module.exports = {
-  changeBackgroundColor,
-  resetBackgroundColor,
-  displayKeyPress,
-  displayUserInput,
-  setupEventListeners,
-}
+  ...(typeof createLoginTracker !== 'undefined' && { createLoginTracker })
+};
